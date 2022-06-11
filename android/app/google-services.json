@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "817925315934",
+    "project_id": "egyoutfit-a9d89",
+    "storage_bucket": "egyoutfit-a9d89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817925315934:android:1195427a855a9e1ad203cf",
+        "android_client_info": {
+          "package_name": "com.example.egyoutfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817925315934-k0pclngpekcrbahetobbors0gaoup32u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL7ueEg3RZxW2DTKWVIctyZbz1Nh0gSxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817925315934-k0pclngpekcrbahetobbors0gaoup32u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
