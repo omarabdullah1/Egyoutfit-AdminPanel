@@ -31,9 +31,9 @@ dependencies:
   firebase_core_web: any
   cloud_firestore: any
   firebase_auth: any
-#  image_picker: ^0.8.4+11
+  image_picker: ^0.8.4+11
   firebase_storage: any
-  firebase_storage_web: any
+#  firebase_storage_web: any
   dots_indicator: ^2.1.0
   awesome_dialog: ^2.2.1
   dropdown_button2: ^1.4.0
@@ -47,9 +47,12 @@ dependencies:
   geolocator: any
   map_launcher: ^2.2.3
   flutter_phone_direct_caller: ^2.1.1
-#  image_picker_web: ^2.1.1
+  image_picker_web: ^2.1.1
   universal_html: ^2.0.8
-  image_picker_for_web: ^2.1.8
+#  image_picker_for_web: ^2.1.8
+  mime_type: ^1.0.0
+  path: any
+  firebase: ^9.0.3
 
 
 dev_dependencies:

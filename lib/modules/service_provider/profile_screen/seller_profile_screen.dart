@@ -146,19 +146,8 @@ class _SellerProfileScreenState extends State<SellerProfileScreen> {
                                                   .sellerAcountScreen_Photos
                                                   .tr(),
                                               onTap: () {
-                                                // DashboardCubit.get(context)
-                                                //     .getImageProfile(false);
-                                              }),
-                                          SpeedDialChild(
-                                              child: const Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                              label: LocaleKeys
-                                                  .sellerAcountScreen_Camera
-                                                  .tr(),
-                                              onTap: () {
-                                                // DashboardCubit.get(context)
-                                                //     .getImageProfile(true);
+                                                DashboardCubit.get(context)
+                                                    .getImageProfile(false);
                                               }),
                                         ],
                                       ),

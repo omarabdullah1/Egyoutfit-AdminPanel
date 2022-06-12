@@ -1,19 +1,15 @@
 import 'dart:developer';
-import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// import 'package:image_picker_web/image_picker_web.dart';
 import '../../../layout/dashboard_layout/cubit/cubit.dart';
 import '../../../layout/dashboard_layout/cubit/states.dart';
 import '../../../shared/components/components.dart';
 import '../../../translations/locale_keys.g.dart';
 import 'create_product2.dart';
-import 'package:universal_html/html.dart' as html;
 
 class CreateProductScreen extends StatelessWidget {
   const CreateProductScreen({Key key}) : super(key: key);
@@ -102,68 +98,62 @@ class CreateProductScreen extends StatelessWidget {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      DashboardCubit.get(context).listImage.isNotEmpty
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: 15.0,
-                                  right: MediaQuery.of(context).size.width / 9,
-                                  left: MediaQuery.of(context).size.width / 9),
-                              child: SizedBox(
-                                height: 100.0,
-                                child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  // shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Stack(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            caroController.jumpToPage(index);
-                                            DashboardCubit.get(context)
-                                                .changeCarousel(index);
-                                          },
-                                            child: Image.network(
-                                                DashboardCubit.get(context)
-                                                    .listImage[index]
-                                                    .path)),
-                                        Positioned(
-                                          top: 0.0,
-                                          right: -15.0,
-                                          child: SizedBox(
-                                            height: 20.0,
-                                            child: FloatingActionButton(
-                                              child: const Icon(
-                                                Icons.close,
-                                                color: Colors.black,
-                                                size: 13.0,
-                                              ),
-                                              onPressed: () {
-                                                DashboardCubit.get(context)
-                                                    .removeImageFromList(index);
-                                              },
-                                              backgroundColor: Colors.white,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return const SizedBox(
-                                      width: 10.0,
-                                    );
-                                  },
-                                  itemCount: DashboardCubit.get(context)
-                                      .listImage
-                                      .length,
-                                ),
-                              ),
-                            )
-                          : const SizedBox(
-                              height: 1,
-                            ),
+                      // DashboardCubit.get(context).listImage.isNotEmpty
+                      //     ? Padding(
+                      //         padding: EdgeInsets.only(
+                      //             bottom: 15.0,
+                      //             right: MediaQuery.of(context).size.width / 9,
+                      //             left: MediaQuery.of(context).size.width / 9),
+                      //         child: SizedBox(
+                      //           height: 100.0,
+                      //           child: ListView.separated(
+                      //             scrollDirection: Axis.horizontal,
+                      //             // shrinkWrap: true,
+                      //             itemBuilder:
+                      //                 (BuildContext context, int index) {
+                      //               return Semantics(
+                      //                 child: Stack(
+                      //                   children: [
+                      //                     Image.file(File(DashboardCubit.get(context).listImage[index].path)),
+                      //                     Positioned(
+                      //                       top: 0.0,
+                      //                       right: -15.0,
+                      //                       child: SizedBox(
+                      //                         height: 20.0,
+                      //                         child: FloatingActionButton(
+                      //                           child: const Icon(
+                      //                             Icons.close,
+                      //                             color: Colors.black,
+                      //                             size: 13.0,
+                      //                           ),
+                      //                           onPressed: () {
+                      //                             DashboardCubit.get(context)
+                      //                                 .removeImageFromList(
+                      //                                     index);
+                      //                           },
+                      //                           backgroundColor: Colors.white,
+                      //                         ),
+                      //                       ),
+                      //                     )
+                      //                   ],
+                      //                 ),
+                      //               );
+                      //             },
+                      //             separatorBuilder:
+                      //                 (BuildContext context, int index) {
+                      //               return const SizedBox(
+                      //                 width: 10.0,
+                      //               );
+                      //             },
+                      //             itemCount: DashboardCubit.get(context)
+                      //                 .listImage
+                      //                 .length,
+                      //           ),
+                      //         ),
+                      //       )
+                      //     : const SizedBox(
+                      //         height: 1,
+                      //       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 80.0,
                         child: Row(
@@ -175,25 +165,12 @@ class CreateProductScreen extends StatelessWidget {
                                 DashboardCubit.get(context)
                                     .getMultiImage(false);
                                 DashboardCubit.get(context)
-                                    .listImage
-                                    .forEach((element) {
-                                  log(element);
-                                });
+                                    .listImage.forEach((element) {log(element.name);});
                               },
                               text: LocaleKeys.sellerAcountScreen_Photos.tr(),
                               background: Colors.black,
                               isIcon: true,
                               icon: Icons.image,
-                              width: MediaQuery.of(context).size.width / 2.6,
-                              height: 50.0,
-                              radius: 25.0,
-                            ),
-                            defaultButton(
-                              function: () {},
-                              text: LocaleKeys.sellerAcountScreen_Camera.tr(),
-                              background: Colors.black,
-                              isIcon: true,
-                              icon: Icons.camera_alt,
                               width: MediaQuery.of(context).size.width / 2.6,
                               height: 50.0,
                               radius: 25.0,
@@ -238,9 +215,7 @@ class CreateProductScreen extends StatelessWidget {
                                             width: 15.0,
                                           ),
                                           Text(
-                                            LocaleKeys
-                                                .sellerCreateProductScreen_category
-                                                .tr(),
+                                            LocaleKeys.sellerCreateProductScreen_category.tr(),
                                             style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 16.0),
@@ -252,8 +227,7 @@ class CreateProductScreen extends StatelessWidget {
                                             icon: const Icon(
                                                 Icons.keyboard_arrow_down),
                                             items: DashboardCubit.get(context)
-                                                .createProductItemsEn
-                                                .map((String items) {
+                                                .createProductItemsEn.map((String items) {
                                               return DropdownMenuItem(
                                                 value: items,
                                                 child: Text(items),
@@ -277,24 +251,18 @@ class CreateProductScreen extends StatelessWidget {
                                     prefix: Icons.text_fields_outlined,
                                     validate: (value) {
                                       if (value.isEmpty) {
-                                        return LocaleKeys
-                                            .sellerCreateProductScreen_pleaseEnterProductName
-                                            .tr();
+                                        return LocaleKeys.sellerCreateProductScreen_pleaseEnterProductName.tr();
                                       }
                                     },
-                                    onChange: (v) {
-                                      if (v.length > 18) {
-                                        log('true');
-                                        nameController.text =
-                                            nameController.text.substring(0,
-                                                nameController.text.length - 1);
+                                    onChange: (v){
+                                      if(v.length>18){
+                                          log('true');
+                                          nameController.text = nameController.text.substring(0, nameController.text.length - 1);
                                       }
                                     },
                                     isPassword: false,
                                     controller: nameController,
-                                    label: LocaleKeys
-                                        .sellerCreateProductScreen_productName
-                                        .tr(),
+                                    label: LocaleKeys.sellerCreateProductScreen_productName.tr(),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -337,9 +305,7 @@ class CreateProductScreen extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      labelText: LocaleKeys
-                                          .sellerCreateProductScreen_description
-                                          .tr(),
+                                      labelText: LocaleKeys.sellerCreateProductScreen_description.tr(),
                                       prefixIcon: const Icon(Icons.text_fields),
                                     ),
                                   ),
@@ -390,9 +356,7 @@ class CreateProductScreen extends StatelessWidget {
                                       width: MediaQuery.of(context).size.width,
                                       radius: 20.0,
                                       height: 50.0,
-                                      text: LocaleKeys
-                                          .sellerCreateProductScreen_continue
-                                          .tr(),
+                                      text: LocaleKeys.sellerCreateProductScreen_continue.tr(),
                                       function: () {
                                         if (formKey.currentState.validate() &&
                                             isDescripted &&
@@ -404,9 +368,7 @@ class CreateProductScreen extends StatelessWidget {
                                                 .isNotEmpty) {
                                           DashboardCubit.get(context)
                                               .uploadToFireBase();
-                                          log(DashboardCubit.get(context)
-                                              .firebaseLink
-                                              .toString());
+                                          log(DashboardCubit.get(context).firebaseLink.toString());
                                           navigateTo(
                                               context,
                                               CreateProductScreen2(
@@ -419,36 +381,23 @@ class CreateProductScreen extends StatelessWidget {
                                                 name: nameController.text,
                                                 description: description,
                                               ));
-                                        } else if (DashboardCubit.get(context)
-                                            .listImage
-                                            .isEmpty) {
-                                          showToast(
-                                              text: LocaleKeys
-                                                  .sellerCreateProductScreen_pleaseSelectImage
-                                                  .tr(),
-                                              state: ToastStates.error);
-                                        } else if (DashboardCubit.get(context)
-                                                .createScreenDropDownValueEn ==
-                                            'None') {
-                                          showToast(
-                                              text: LocaleKeys
-                                                  .sellerCreateProductScreen_categoryShouldNotBeNone
-                                                  .tr(),
-                                              state: ToastStates.error);
-                                        } else if (nameController
-                                            .text.isEmpty) {
-                                          showToast(
-                                              text: LocaleKeys
-                                                  .sellerCreateProductScreen_pleaseEnterProductName
-                                                  .tr(),
-                                              state: ToastStates.error);
-                                        } else if (!isDescripted) {
-                                          showToast(
-                                              text: LocaleKeys
-                                                  .sellerCreateProductScreen_pleaseEnterDescription
-                                                  .tr(),
-                                              state: ToastStates.error);
                                         }
+                                        else if(DashboardCubit.get(context)
+                                            .listImage
+                                            .isEmpty){
+                                          showToast(text: LocaleKeys.sellerCreateProductScreen_pleaseSelectImage.tr(), state: ToastStates.error);
+                                        }
+                                        else if( DashboardCubit.get(context)
+                                            .createScreenDropDownValueEn ==
+                                            'None'){
+                                          showToast(text: LocaleKeys.sellerCreateProductScreen_categoryShouldNotBeNone.tr(), state: ToastStates.error);
+                                        }
+                                        else if(nameController.text.isEmpty){
+                                          showToast(text: LocaleKeys.sellerCreateProductScreen_pleaseEnterProductName.tr(), state: ToastStates.error);
+                                        }else if(!isDescripted){
+                                          showToast(text: LocaleKeys.sellerCreateProductScreen_pleaseEnterDescription.tr(), state: ToastStates.error);
+                                        }
+
                                       },
                                       background: Colors.black,
                                     ),

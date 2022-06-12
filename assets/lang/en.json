@@ -146,7 +146,9 @@
     "pleaseEnterOldPassword": "Please enter old password ",
     "pleasEenterNewPassword": "Please enter new password",
     "pleasEenterNewPasswordConfirm": "Please enter new password confirm",
-    "passwordUpdatedSuccessfully": "Password Updated Successfully"
+    "passwordUpdatedSuccessfully": "Password Updated Successfully",
+    "yourItems": "Your Items",
+    "yourOffers": "The Offers"
   },
   "sellerAcountScreen": {
     "account": "Account",

@@ -146,7 +146,9 @@
     "pleaseEnterOldPassword": "الرجاء إدخال كلمة المرور القديمة",
     "pleasEenterNewPassword": "الرجاء إدخال كلمة المرور الجديدة",
     "pleasEenterNewPasswordConfirm": "الرجاء إدخال تأكيد كلمة المرور الجديدة",
-    "passwordUpdatedSuccessfully": "تم تحديث كلمة السر بنجاح"
+    "passwordUpdatedSuccessfully": "تم تحديث كلمة السر بنجاح",
+    "yourOffers": "العروض",
+    "yourItems": "عربة التسوق الخاصة بك"
   },
   "sellerAcountScreen": {
     "account": "الحساب",

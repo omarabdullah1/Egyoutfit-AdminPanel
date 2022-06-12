@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 import 'dart:math' as math;
 import 'package:adminpanel/layout/dashboard_layout/cubit/states.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_for_web/image_picker_for_web.dart';
-// import 'package:image_picker_web/image_picker_web.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../models/message/message_model.dart';
 import '../../../models/orders/orders_model.dart';
 import '../../../models/promo/promo_model.dart';
@@ -21,9 +19,6 @@ import '../../../models/user/user_model.dart';
 import '../../../modules/login/login_screen.dart';
 import '../../../modules/service_provider/dashboard_screen/dashboard_screen.dart';
 import '../../../modules/service_provider/profile_screen/seller_setting_screen.dart';
-import '../../../modules/service_provider/sales_screen/sales_screen.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:universal_html/html.dart'as html;
 import '../../../modules/service_provider/users/users_screen.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/network/local/cache_helper.dart';
@@ -34,8 +29,8 @@ class DashboardCubit extends Cubit<DashboardStates> {
   static DashboardCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
-  List listImage = [];
-  String image;
+  List<XFile> listImage = [];
+  var image;
 
   List<String> firebaseLink;
   List firebaseLinkEdit;
@@ -845,30 +840,30 @@ class DashboardCubit extends Cubit<DashboardStates> {
   //   }
   // }
 
-  // Future<void> getImageProfile(bool isCamera) async {
-  //   emit(LoadingPickImageState());
-  //   image = '';
-  //   var picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(
-  //       source: isCamera ? ImageSource.camera : ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     image = pickedFile.path;
-  //     emit(SuccessPickImageState());
-  //   } else {
-  //     log('No image selected.');
-  //     emit(ErrorPickImageState());
-  //   }
-  // }
-  //
-  // changeUpdateState(value) {
-  //   isUpdate = value;
-  //   emit(ChangeUpdateDashboardState());
-  // }
+  Future<void> getImageProfile(bool isCamera) async {
+    emit(LoadingPickImageState());
+    image =null ;
+    var picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+        source: isCamera ? ImageSource.camera : ImageSource.gallery);
+    if (pickedFile != null) {
+      image = pickedFile;
+      emit(SuccessPickImageState());
+    } else {
+      log('No image selected.');
+      emit(ErrorPickImageState());
+    }
+  }
+
+  changeUpdateState(value) {
+    isUpdate = value;
+    emit(ChangeUpdateDashboardState());
+  }
 
   Future<void> getMultiImage(bool isCamera) async {
     emit(LoadingPickImageState());
-    var picker = ImagePickerPlugin();
-    final pickedFileList =  await ImagePickerPlugin().getMultiImage();
+    var picker = ImagePicker();
+    final List<XFile> pickedFileList = await picker.pickMultiImage();
     // final pickedFile = await picker.pickImage(
     //     source: ImageSource.gallery);
     if (pickedFileList != null) {
@@ -894,21 +889,18 @@ class DashboardCubit extends Cubit<DashboardStates> {
     emit(LoadingUploadImageState());
     firebaseLink = [];
     for (var element in listImage) {
-      firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('products/${Uri.file(element.path).pathSegments.last}')
-          .putFile(File(element))
-          .then((value) {
-        value.ref
-            .getDownloadURL()
-            .then((value) {
-              firebaseLink.add(value.toString());
+      await FirebaseStorage.instance
+          .ref('gs://egyoutfit-a9d89.appspot.com/products/')
+          .child('web'+element.name)
+          .putData(
+            await element.readAsBytes(),
+            SettableMetadata(contentType: 'image/jpeg'),
+          )
+          .then((val) async {
+            await FirebaseStorage.instance
+                .ref('gs://egyoutfit-a9d89.appspot.com/products/${'web' + element.name}').getDownloadURL().then((value) {
+                  firebaseLink.add(value);
               log(value.toString());
-            })
-            .whenComplete(() => emit(SuccessUploadImageState()))
-            .catchError((err) {
-              log(err.toString());
-              emit(ErrorUploadImageState());
             });
       });
     }
@@ -918,12 +910,16 @@ class DashboardCubit extends Cubit<DashboardStates> {
     emit(LoadingUploadImageState());
     firebaseLinkEdit = [];
     for (var element in listImage) {
-      await firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('products/${Uri.file(element).pathSegments.last}')
-          .putFile(File(element))
-          .then((value) {
-        value.ref
+      await FirebaseStorage.instance
+          .ref('gs://egyoutfit-a9d89.appspot.com/products/')
+          .child('web'+element.name)
+          .putData(
+        await element.readAsBytes(),
+        SettableMetadata(contentType: 'image/jpeg'),
+      )
+          .then((value) async {
+        await FirebaseStorage.instance
+            .ref('gs://egyoutfit-a9d89.appspot.com/products/${'web' + element.name}')
             .getDownloadURL()
             .then((value) {
               firebaseLinkEdit.add(value.toString());
@@ -969,12 +965,16 @@ class DashboardCubit extends Cubit<DashboardStates> {
   }) async {
     emit(LoadingUploadImageState());
     firebaseImagesEdit = '';
-    await firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('products/${Uri.file(image).pathSegments.last}')
-        .putFile(File(image))
-        .then((value) {
-      value.ref
+    await FirebaseStorage.instance
+        .ref('gs://egyoutfit-a9d89.appspot.com/products/')
+        .child('web'+image.name)
+        .putData(
+      await image.readAsBytes(),
+      SettableMetadata(contentType: 'image/jpeg'),
+    )
+        .then((value) async {
+      await FirebaseStorage.instance
+          .ref('gs://egyoutfit-a9d89.appspot.com/products/${'web' + image.name}')
           .getDownloadURL()
           .then((value) {
             firebaseImagesEdit = value.toString();
@@ -1638,26 +1638,27 @@ class DashboardCubit extends Cubit<DashboardStates> {
     userLogin(context: context, email: newEmail, password: password);
   }
 
-  Future<void> deleteUser({String uid,}) async {
+  Future<void> deleteUser({
+    String uid,
+  }) async {
     await FirebaseFirestore.instance.collection('users').doc(uid).update({
       'isEmailVerfied': false,
     }).then((value) {
-      showToast(
-          text: 'email deleted',
-          state: ToastStates.success);
+      showToast(text: 'email deleted', state: ToastStates.success);
       emit(DeleteUserSuccessState());
     }).catchError((error) {
       log(error.toString());
       emit(DeleteUserErrorState());
     });
   }
-  Future<void> undeleteUser({String uid,}) async {
+
+  Future<void> undeleteUser({
+    String uid,
+  }) async {
     await FirebaseFirestore.instance.collection('users').doc(uid).update({
       'isEmailVerfied': true,
     }).then((value) {
-      showToast(
-          text: 'email undeleted',
-          state: ToastStates.success);
+      showToast(text: 'email undeleted', state: ToastStates.success);
       emit(UnDeleteUserSuccessState());
     }).catchError((error) {
       log(error.toString());

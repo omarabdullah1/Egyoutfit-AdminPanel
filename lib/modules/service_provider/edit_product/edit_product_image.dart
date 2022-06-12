@@ -43,43 +43,43 @@ class EditProductImageScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15.0,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width - 80.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(width: 2.0, color: Colors.black)),
-                      child: CarouselSlider(
-                        items: DashboardCubit.get(context).listImage.isEmpty
-                            ? pListImage.map((e) => Image.network(e)).toList()
-                            : DashboardCubit.get(context)
-                                .listImage
-                                .map((e) => Image.file(File(e)))
-                                .toList(),
-                        options: CarouselOptions(
-                          onPageChanged: (index, reason) {
-                            DashboardCubit.get(context).changeCarousel(index);
-                          },
-                          aspectRatio: 1.0,
-                          height: 200,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: false,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration: const Duration(seconds: 1),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                        carouselController: caroController,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Container(
+                //       width: MediaQuery.of(context).size.width - 80.0,
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(15.0),
+                //           border: Border.all(width: 2.0, color: Colors.black)),
+                //       child: CarouselSlider(
+                //         items: DashboardCubit.get(context).listImage.isEmpty
+                //             ? pListImage.map((e) => Image.network(e)).toList()
+                //             : DashboardCubit.get(context)
+                //                 .listImage
+                //                 .map((e) => Image.file(File(e)))
+                //                 .toList(),
+                //         options: CarouselOptions(
+                //           onPageChanged: (index, reason) {
+                //             DashboardCubit.get(context).changeCarousel(index);
+                //           },
+                //           aspectRatio: 1.0,
+                //           height: 200,
+                //           viewportFraction: 1.0,
+                //           enlargeCenterPage: false,
+                //           initialPage: 0,
+                //           enableInfiniteScroll: true,
+                //           reverse: false,
+                //           autoPlay: false,
+                //           autoPlayInterval: const Duration(seconds: 3),
+                //           autoPlayAnimationDuration: const Duration(seconds: 1),
+                //           autoPlayCurve: Curves.fastOutSlowIn,
+                //           scrollDirection: Axis.horizontal,
+                //         ),
+                //         carouselController: caroController,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(
                   height: 15.0,
                 ),
@@ -115,8 +115,8 @@ class EditProductImageScreen extends StatelessWidget {
                               return Semantics(
                                 child: Stack(
                                   children: [
-                                    Image.file(File(DashboardCubit.get(context)
-                                        .listImage[index])),
+                                    // Image.file(File(DashboardCubit.get(context)
+                                    //     .listImage[index])),
                                     Positioned(
                                       top: 0.0,
                                       right: -15.0,
@@ -209,11 +209,11 @@ class EditProductImageScreen extends StatelessWidget {
                 ),
                 defaultButton(
                   function: () {
-                    DashboardCubit.get(context).uploadEditToFireBase(
-                      pId: pId,
-                      pListImage: pListImage,
-                      context:context,
-                    );
+                    // DashboardCubit.get(context).uploadEditToFireBase(
+                    //   pId: pId,
+                    //   pListImage: pListImage,
+                    //   context:context,
+                    // );
                   },
                   text: 'upload',
                   background: Colors.black,
