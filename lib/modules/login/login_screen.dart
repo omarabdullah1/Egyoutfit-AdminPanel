@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:adminpanel/layout/dashboard_layout/dashboard_layout.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               showToast(
                   text: LocaleKeys.alerts_loginSuccessfully.tr(),
                   state: ToastStates.success);
-              navigateAndFinish(context, const ShopLayout());
+              navigateAndFinish(context, const DashboardLayout());
             });
           }
         },

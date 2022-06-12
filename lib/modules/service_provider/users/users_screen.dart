@@ -30,77 +30,89 @@ class _UsersScreenState extends State<UsersScreen> {
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: ListView.separated(
-              itemBuilder: (context, index) => SizedBox(
-                height: 110.0,
-                child: InkWell(
-                  onTap: () {
-                    navigateTo(
-                      context,
-                      OpenSellerAdminScreen(
-                          user: DashboardCubit.get(context).users[index]),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 40.0,
-                        backgroundImage: NetworkImage(
-                          DashboardCubit.get(context).users[index].image,
+            child: Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width/2,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black,width: 2.0),
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) => SizedBox(
+                      height: 110.0,
+                      child: InkWell(
+                        onTap: () {
+                          navigateTo(
+                            context,
+                            OpenSellerAdminScreen(
+                                user: DashboardCubit.get(context).users[index]),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 40.0,
+                              backgroundImage: NetworkImage(
+                                DashboardCubit.get(context).users[index].image,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  DashboardCubit.get(context).users[index].firstName +
+                                      ' ' +
+                                      DashboardCubit.get(context)
+                                          .users[index]
+                                          .secondName,
+                                  style: const TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  DashboardCubit.get(context).users[index].city,
+                                  style: const TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  DashboardCubit.get(context).users[index].area,
+                                  style: const TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundColor: DashboardCubit.get(context).users[index].isEmailVerfied
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                                const Icon(Icons.arrow_forward_ios),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            DashboardCubit.get(context).users[index].firstName +
-                                ' ' +
-                                DashboardCubit.get(context)
-                                    .users[index]
-                                    .secondName,
-                            style: const TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DashboardCubit.get(context).users[index].city,
-                            style: const TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DashboardCubit.get(context).users[index].area,
-                            style: const TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: DashboardCubit.get(context).users[index].isEmailVerfied
-                                ? Colors.green
-                                : Colors.red,
-                          ),
-                          const Icon(Icons.arrow_forward_ios),
-                        ],
-                      ),
-                    ],
+                    ),
+                    separatorBuilder: (context, index) => myDivider(),
+                    itemCount: DashboardCubit.get(context).users.length,
                   ),
                 ),
               ),
-              separatorBuilder: (context, index) => myDivider(),
-              itemCount: DashboardCubit.get(context).users.length,
             ),
           ),
         );

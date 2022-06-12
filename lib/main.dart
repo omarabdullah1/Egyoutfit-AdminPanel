@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
         // darkTheme: darkTheme,
         // themeMode: false ? ThemeMode.dark : ThemeMode.light,
         home: AnimatedSplashScreen(
-          nextScreen: ShowCaseWidget(builder: Builder(builder:(context)=> const DashboardLayout()),),
+          nextScreen: ShowCaseWidget(builder: Builder(builder:(context)=> const LoginScreen()),),
           backgroundColor: Colors.white,
           duration: 1500,
           centered: true,
