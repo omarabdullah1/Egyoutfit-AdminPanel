@@ -1,4 +1,4 @@
-# adminpanel
+# EgyOutfit AdminPanel
 
 A new Flutter project.
 
