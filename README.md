@@ -13,11 +13,10 @@ Star ⭐ the repo if you like what you see😉.
 
 #### How to Install?
 ```
-git clone https://github.com/AgnelSelvan/Flutter-Web-Portfolio.git
-cd Flutter-Web-Portfolio
+git clone https://github.com/omarabdullah1/Egyoutfit-AdminPanel.git
+cd Egyoutfit-AdminPanel
 flutter packages get
 flutter run -d chrome
 ```
 #### Looks
-<img src="./outputs/gif/desktop.gif" />
-<img width="150" src="./outputs/gif/mobile.gif" />
+<img src="./assets/screens/img1.jpg" />
